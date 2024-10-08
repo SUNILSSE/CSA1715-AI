@@ -1,0 +1,34 @@
+import pandas as pd
+
+# Create a sample DataFrame
+data = {
+    'Student_id': [1, 2, 3, 4, 5],
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
+    'Department': ['CS', 'EE', 'CS', 'EE', 'CS'],
+    'marks': [[80, 75, 90, 85, 95], [65, 70, 85, 75, 80], [70, 80, 65, 75, 90], [50, 60, 70, 65, 75], [90, 85, 75, 80, 95]]
+}
+
+df = pd.DataFrame(data)
+
+# Calculate Average Marks
+df['Average_Marks'] = df['marks'].apply(lambda x: sum(x) / len(x))
+
+# Calculate Total Marks
+df['Total_Marks'] = df['marks'].apply(lambda x: sum(x))
+
+# Determine Pass or Fail
+df['Status'] = df['marks'].apply(lambda x: 'Pass' if all(mark >= 35 for mark in x) else 'Fail')
+
+# Find Top Student by Department
+top_students = df.groupby('Department').apply(lambda x: x.nlargest(1, 'Average_Marks'))
+
+# Department-wise Summary
+department_summary = df.groupby('Department').agg({'Average_Marks': 'mean', 'Total_Marks': 'sum', 'Status': 'count'})
+
+# Sort Students by Average Marks
+df = df.sort_values('Average_Marks', ascending=False)
+
+# Print the results
+print("Top Students by Department:\n", top_students)
+print("\nDepartment-wise Summary:\n", department_summary)
+print("\nStudents sorted by Average Marks:\n", df)
