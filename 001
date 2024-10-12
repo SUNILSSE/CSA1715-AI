@@ -13,7 +13,7 @@ df = pd.DataFrame(data)
 # Calculate Average Marks
 df['Average_Marks'] = df['marks'].apply(lambda x: sum(x) / len(x))
 
-# Calculate Total Marks
+# Calculate Total Marks 8688491662
 df['Total_Marks'] = df['marks'].apply(lambda x: sum(x))
 
 # Determine Pass or Fail
